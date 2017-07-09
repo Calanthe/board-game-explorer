@@ -1,6 +1,6 @@
-import FS from 'fs';
-
 import express from 'express';
+import axios from 'axios';
+import nconf from 'nconf';
 
 import React from 'react'
 import {renderToString} from 'react-dom/server';
@@ -16,7 +16,6 @@ import ContextWrapper from '../components/common/ContextWrapper';
 
 const routeManager = Object.assign({}, baseManager, {
     configureDevelopmentEnv(app) {
-
         const apiRouter = this.createApiRouter();
         const pagesRouter = this.createPageRouter();
         app.use('/api', apiRouter);
@@ -28,51 +27,94 @@ const routeManager = Object.assign({}, baseManager, {
 
         router.get('*', (req, res) => {
             match({routes, location: req.originalUrl}, (err, redirectLocation, renderProps) => {
-                this.retrievelatestGames((err, data) => {
-                    if(!err) {
-                        const html = this.render(renderProps, data);
+                const {promises, components} = this.mapComponentsToPromises(
+                    renderProps.components, renderProps.params);
 
-                        res.render('index', {
-                            content: html,
-                            context: data
-                        });
-                    } else {
-                        res.status(500).send();
-                    }
+                Promise.all(promises).then((values) => {
+                    const data = this.prepareData(values, components);
+                    const html = this.render(renderProps, data);
+
+                    console.log('inside createPageRouter - values: ', values)
+
+                    res.render('index', {
+                        content: html,
+                        context: JSON.stringify(data)
+                    });
+                }).catch((err) => {
+                    res.status(500).send(err);
                 });
-
             });
         });
-
         return router;
+    },
+
+    mapComponentsToPromises(components, params) {
+        const filteredComponents = components.filter((Component) => {
+            return (typeof Component.requestData === 'function');
+        });
+
+        const promises = filteredComponents.map(function(Component) {
+            return Component.requestData(params, nconf.get('domain'));
+        });
+
+        return {promises, components: filteredComponents};
+    },
+
+    prepareData(values, components) {
+        const map = {};
+
+        values.forEach((value, index) => {
+            map[components[0].NAME] = value.data;
+        });
+
+        return map;
     },
 
     createApiRouter(app) {
         const router = express.Router();
 
-        router.get('/latest-games', (req, res) => {
-            this.retrievelatestGames((err, content, body) => {
-                if(!err && content.statusCode == 200) {
-                    parseString(body, function (err, result) {
-                        res.send(result.items);
-                    });
-                } else {
-                    res.status(500).send();
-                }
-            });
-        });
-
+        this.createLastestGamesRoute(router);
+        this.createDetailedGameRoute(router);
         return router;
     },
 
-    retrievelatestGames(callback) {
+    createLastestGamesRoute(router) {
+        router.get('/latest-games', (req, res) => {
+            this.retrieveLatestGames((err, data) => {
+                if(!err) {
+                    res.json(data);
+                } else {
+                    res.status(500).send(err);
+                }
+            });
+        });
+    },
+
+    retrieveLatestGames(callback) {
         request('https://boardgamegeek.com/xmlapi2/hot?boardgame', callback);
     },
 
+    createDetailedGameRoute(router) {
+        router.get('/game/:id', (req, res) => {
+            const id = req.params.id;
+
+            this.retrieveDetailedGame((err, data) => {
+                if(!err) {
+                    res.json(data);
+                } else {
+                    res.status(500).send(err);
+                }
+            });
+        });
+    },
+
+    retrieveDetailedGame(callback, data) {
+        request('https://boardgamegeek.com/xmlapi2/boardgame/' + data.id, callback);
+    },
+
     render(renderProps, data) {
-        let parsedData = data;
         let html = renderToString(
-            <ContextWrapper data={parsedData}>
+            <ContextWrapper data={data}>
                 <RoutingContext {...renderProps}/>
             </ContextWrapper>
         );

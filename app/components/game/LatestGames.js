@@ -1,18 +1,27 @@
 import React from 'react';
+import axios from 'axios';
 
 import List from '../common/List';
 import SingleGameItem from './SingleGameItem';
 
 export default class LatestGames extends React.Component {
+    static get NAME() {
+        return 'LatestGames';
+    }
+
     static get contextTypes() {
         return {
             data: React.PropTypes.object
         };
     }
 
+    static requestData(params, domain = '') {
+        return axios.get(`${domain}/api/latest-games`);
+    }
+
     constructor(props, context) {
         super(props, context);
-        this.state = context.items || {items: []};
+        this.state = context.data[LatestGames.NAME] || {items: []};
     }
 
     render() {
@@ -29,12 +38,14 @@ export default class LatestGames extends React.Component {
     }
 
     componentDidMount() {
-        fetch('/api/latest-games').then((response) => {
-            return response.json();
-        }).then((data) => {
-            this.setState({items: data.item});
+        this.constructor.requestData()
+        .then(function(response) { return response.json(); })
+        .then((data) => {
+            console.log(data)
+            // return response.json();
+            this.setState(data);
         }).catch((err) => {
-            throw new Error(err);
+            console.log(err);
         });
     }
 }
