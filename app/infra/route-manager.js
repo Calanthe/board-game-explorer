@@ -34,8 +34,6 @@ const routeManager = Object.assign({}, baseManager, {
                     const data = this.prepareData(values, components);
                     const html = this.render(renderProps, data);
 
-                    console.log('inside createPageRouter - values: ', values)
-
                     res.render('index', {
                         content: html,
                         context: JSON.stringify(data)
@@ -80,11 +78,13 @@ const routeManager = Object.assign({}, baseManager, {
 
     createLastestGamesRoute(router) {
         router.get('/latest-games', (req, res) => {
-            this.retrieveLatestGames((err, data) => {
-                if(!err) {
-                    res.json(data);
+            this.retrieveLatestGames((err, content, body) => {
+                if(!err && content.statusCode == 200) {
+                    parseString(body, function (err, result) {
+                        res.send(result.items);
+                    });
                 } else {
-                    res.status(500).send(err);
+                    res.status(500).send();
                 }
             });
         });
@@ -98,9 +98,11 @@ const routeManager = Object.assign({}, baseManager, {
         router.get('/game/:id', (req, res) => {
             const id = req.params.id;
 
-            this.retrieveDetailedGame((err, data) => {
-                if(!err) {
-                    res.json(data);
+            this.retrieveDetailedGame((err, content, body) => {
+                if(!err && content.statusCode == 200) {
+                    parseString(body, function (err, result) {
+                        res.send(result.items);
+                    });
                 } else {
                     res.status(500).send(err);
                 }

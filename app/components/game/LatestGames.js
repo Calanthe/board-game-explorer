@@ -31,19 +31,15 @@ export default class LatestGames extends React.Component {
                     <h3 className="title">Latest Games</h3>
                 </header>
                 <section className="section-content">
-                    <List items={this.state.items} itemType={SingleGameItem}/>
+                    <List items={this.state.item} itemType={SingleGameItem}/>
                 </section>
             </section>
         );
     }
 
     componentDidMount() {
-        this.constructor.requestData()
-        .then(function(response) { return response.json(); })
-        .then((data) => {
-            console.log(data)
-            // return response.json();
-            this.setState(data);
+        this.constructor.requestData().then((response) => {
+            this.setState(response.data);
         }).catch((err) => {
             console.log(err);
         });

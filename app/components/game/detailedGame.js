@@ -35,7 +35,6 @@ export default class DetailedGame extends React.Component {
 
     componentDidMount() {
         this.constructor.requestData(this.props.params).then((response) => {
-            // return response.json();
             this.setState(response.data);
         }).catch((err) => {
             console.log(err);
