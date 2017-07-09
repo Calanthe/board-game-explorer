@@ -1,8 +1,10 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 export default class SingleGameItem extends React.Component {
     render() {
         const data = this.props.data;
+        const link = this.calculateLink(data.$);
         let yearPublished = null;
 
         if (data.yearpublished && data.yearpublished.length) {
@@ -16,7 +18,14 @@ export default class SingleGameItem extends React.Component {
                     <h4 className="title">{data.name[0].$.value}</h4>
                     {yearPublished}
                 </div>
+                <Link className="link" to={link}>
+                    More Details &#187;
+                </Link>
             </div>
         );
+    }
+
+    calculateLink(data) {
+        return `/game/${data.id}`;
     }
 }

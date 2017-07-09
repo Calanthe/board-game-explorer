@@ -101,17 +101,17 @@ const routeManager = Object.assign({}, baseManager, {
             this.retrieveDetailedGame((err, content, body) => {
                 if(!err && content.statusCode == 200) {
                     parseString(body, function (err, result) {
-                        res.send(result.items);
+                        res.send(result.boardgames.boardgame[0]);
                     });
                 } else {
                     res.status(500).send(err);
                 }
-            });
+            }, id);
         });
     },
 
-    retrieveDetailedGame(callback, data) {
-        request('https://boardgamegeek.com/xmlapi2/boardgame/' + data.id, callback);
+    retrieveDetailedGame(callback, id) {
+        request('https://boardgamegeek.com/xmlapi/boardgame/' + id, callback);
     },
 
     render(renderProps, data) {
