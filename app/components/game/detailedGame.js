@@ -24,7 +24,7 @@ export default class DetailedGame extends React.Component {
     render() {
         const data = this.state;
         let gameTitle = null;
-        console.log(data.name.length, data.name[1]) //TODO test Gloomhaven, maybe no array
+        // console.log(data.name.length, data.name[1]) //TODO test Gloomhaven, maybe no array
 
         if (data.name && data.name.length > 1) {
             gameTitle = <h4>{data.name[1]._}</h4>;
@@ -38,7 +38,6 @@ export default class DetailedGame extends React.Component {
                     {gameTitle}
                 </header>
                 <p>{data.description}</p>
-                blabla
             </section>
         );
     }

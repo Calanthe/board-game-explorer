@@ -16,7 +16,7 @@ export default class SingleGameItem extends React.Component {
                 <img src={`${data.thumbnail[0].$.value}`}/>
                 <div className="info-container">
                     <h4 className="title">{data.name[0].$.value}</h4>
-                    {yearPublished}
+                    year published: {yearPublished}
                 </div>
                 <Link className="link" to={link}>
                     More Details &#187;

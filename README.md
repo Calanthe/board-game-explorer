@@ -21,3 +21,7 @@ You can access the application's server directly under http://localhost:6001 or 
 ## Description
 
 The SSR part is made based on tutorial from https://www.smashingmagazine.com/2016/03/server-side-rendering-react-node-express/.
+
+Known issues:
+- Couldn't use localStorage, dunno why
+- There is a console error when there is no /public/js/app.js file, but with it, I cant change anything in DOM
