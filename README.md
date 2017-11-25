@@ -4,13 +4,13 @@ Made to practise Server Side Rendering with React, Redux, Node, TypeScript and M
 
 ## Installation & Execution
 
-The application is installed using:
+Install application using:
 
 ```
 npm install
 ```
 
-and ran using:
+and run it with:
 
 ```
 npm start
