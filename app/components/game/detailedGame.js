@@ -37,7 +37,17 @@ export default class DetailedGame extends React.Component {
                 <header className="section-header">
                     {gameTitle}
                 </header>
+                <img src={`${data.image}`}/>
                 <p>{data.description}</p>
+                <p>by {data.boardgamedesigner[0]._}</p>
+                <p>
+                  Mechanic: {data.boardgamemechanic[0]._},
+                  {data.boardgamemechanic[1]._},
+                  {data.boardgamemechanic[2]._}
+                </p>
+                <p>players: {data.minplayers[0]} - {data.maxplayers[0]}</p>
+                <p>playing time: {data.minplaytime[0]} - {data.maxplaytime[0]}</p>
+                <p>year published: {data.yearpublished[0]}</p>
             </section>
         );
     }

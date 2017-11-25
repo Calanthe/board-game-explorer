@@ -28,7 +28,7 @@ export default class LatestGames extends React.Component {
         return (
             <section className="latest-games">
                 <header className="section-header">
-                    <h3 className="title">Latest Gamess</h3>
+                    <h3 className="title">Latest and most popular board games based on bgg</h3>
                 </header>
                 <section className="section-content">
                     <List items={this.state.item} itemType={SingleGameItem}/>

@@ -12,8 +12,6 @@ import routes from '../routes';
 const request = require('request');
 const parseString = require('xml2js').parseString;
 
-const htmlparser = require("htmlparser2");
-
 import ContextWrapper from '../components/common/ContextWrapper';
 
 const routeManager = Object.assign({}, baseManager, {
@@ -104,24 +102,7 @@ const routeManager = Object.assign({}, baseManager, {
             this.retrieveDetailedGame((err, content, body) => {
                 if(!err && content.statusCode == 200) {
                     parseString(body, (err, result) => {
-                        console.log('game title: ', result.boardgames.boardgame[0].name[1]._)
-                        this.retrieveImage((err, content, body) => {
-                            if(!err && content.statusCode == 200) {
-                                let parser = new htmlparser.Parser({
-                                    onopentag: function(name, attribs){
-                                        if(name === "img" && attribs.src.startsWith("https://encrypted")){
-                                          console.log("Img! Hooray!", attribs.src, attribs);
-                                          images.push(attribs.src);
-                                        }
-                                      }
-                                  }, {decodeEntities: true});
-                                parser.write(body);
-                                parser.end();
-                                console.log('found image: ', images[0])
-                                // console.log('result: ', body)
-                                res.send(result.boardgames.boardgame[0]);
-                            }
-                        }, result.boardgames.boardgame[0].name[1]._);
+                        res.send(result.boardgames.boardgame[0]);
                     });
                 } else {
                     res.status(500).send(err);
@@ -132,10 +113,6 @@ const routeManager = Object.assign({}, baseManager, {
 
     retrieveDetailedGame(callback, id) {
         request('https://boardgamegeek.com/xmlapi/boardgame/' + id, callback);
-    },
-
-    retrieveImage(callback, name) {
-        request('https://www.google.com/search?site=imghp&q=' + name, callback);
     },
 
     render(renderProps, data) {
