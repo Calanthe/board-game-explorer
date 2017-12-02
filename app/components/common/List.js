@@ -1,6 +1,12 @@
+// @flow
 import React from 'react';
 
-export default class List extends React.Component {
+type Props = {
+  itemType: Object,
+  items: ?Array<Object>
+};
+
+export default class List extends React.Component<Props> {
     render() {
         const ItemType = this.props.itemType;
         const items = this.props.items || [];
@@ -9,7 +15,7 @@ export default class List extends React.Component {
         return (<ul className="ui-list">{markupItems}</ul>);
     }
 
-    createItemsMarkup(items, Type) {
+    createItemsMarkup(items: Array<Object>, Type: Object) {
         const markupItems = items.map((item) => {
             return (
                 <li className="ui-list-item" key={item.$.id}>

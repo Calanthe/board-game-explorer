@@ -1,6 +1,9 @@
+// @flow
 import React from 'react';
 
-export default class NoMatch extends React.Component {
+type Props = {};
+
+export default class NoMatch extends React.Component<Props> {
     render() {
         return (
             <section className="app-content">

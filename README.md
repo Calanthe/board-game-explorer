@@ -10,6 +10,9 @@ Install application using:
 npm install
 ```
 
+Make sure you have the newest, > 6.0.0 babel:
+(http://babeljs.io/blog/2015/10/31/setting-up-babel-6)
+
 and run it with:
 
 ```
@@ -23,7 +26,7 @@ npm install --global flow-bin
 flow init
 ```
 
-And test files with `// @flow` on top with:
+And test files with `// @flow` on the first line by typing:
 
 ```
 flow
