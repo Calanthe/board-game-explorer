@@ -1,12 +1,4 @@
-.latest-games {
-}
-
-.compact-bill {
-}
-
-.detailed-bill {
-}
-.bill {
+.game-list__item {
     border-bottom: 1px solid $footer-border-color;
 
     padding: 1rem 0;
@@ -35,7 +27,7 @@
     .amount {
         font-size: nth($heading-sizes, 1);
         font-weight: 700;
-        font-family: $heading-font;
+        font-family: $main-font;
         line-height: 1;
 
         flex: 0 0 10rem;

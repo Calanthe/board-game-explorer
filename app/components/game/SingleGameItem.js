@@ -12,7 +12,7 @@ export default class SingleGameItem extends React.Component {
         }
 
         return (
-            <div className="bill compact-bill">
+            <div className="game-list__item">
                 <img src={`${data.thumbnail[0].$.value}`}/>
                 <div className="info-container">
                     <h4 className="title">{data.name[0].$.value}</h4>

@@ -24,7 +24,7 @@ var webpackConfig = {
         filename: BUILD_FILE
     },
     devtool: 'inline-source-map',
-    debug: true,    
+    debug: true,
     bail: true,
     eslint: {
         configFile: ESLINT_CONFIG_FILE
@@ -50,8 +50,19 @@ var webpackConfig = {
                     compact: false,
                     cacheDirectory: true
                 }
+            },
+            {
+                test: /\.css$/,
+                loader: 'style-loader'
+            }, {
+                test: /\.css$/,
+                loader: 'css-loader',
+                query: {
+                  modules: true,
+                  localIdentName: '[name]__[local]___[hash:base64:5]'
+                }
             }
-        ]        
+        ]
     },
     externals: {
         'axios': 'axios',

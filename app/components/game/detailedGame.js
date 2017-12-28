@@ -1,6 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 
+function br2nl(str) {
+    return str.replace(/<br\s*\/?>/mg, '\n');
+}
+
 export default class DetailedGame extends React.Component {
     static get NAME() {
         return 'DetailedGame';
@@ -24,7 +28,7 @@ export default class DetailedGame extends React.Component {
     render() {
         const data = this.state;
         let gameTitle = null;
-        // console.log(data.name.length, data.name[1]) //TODO test Gloomhaven, maybe no array
+        let gameDesc = null;
 
         if (data.name && data.name.length > 1) {
             gameTitle = <h4>{data.name[1]._}</h4>;
@@ -32,22 +36,30 @@ export default class DetailedGame extends React.Component {
             gameTitle = <h4>{data.name[0]._}</h4>;
         }
 
+        gameDesc = br2nl(data.description[0]);
+
         return (
-            <section className="latest-bills">
-                <header className="section-header">
+            <section className="game-item">
+                <header className="game-item__title">
                     {gameTitle}
                 </header>
-                <img src={`${data.image}`}/>
-                <p>{data.description}</p>
-                <p>by {data.boardgamedesigner[0]._}</p>
-                <p>
-                  Mechanic: {data.boardgamemechanic[0]._},
-                  {data.boardgamemechanic[1]._},
-                  {data.boardgamemechanic[2]._}
+                <img src={`${data.image}`} className="game-item__pic"/>
+                <p className="game-item__desc dashed">{gameDesc}</p>
+                <p className="game-item__author">
+                    <span className="bold">by</span> {data.boardgamedesigner[0]._}</p>
+                <p className="game-item__machanics">
+                    <span className="bold">Mechanic:</span> {data.boardgamemechanic[0]._},
+                    {data.boardgamemechanic[1]._},
+                    {data.boardgamemechanic[2]._}
                 </p>
-                <p>players: {data.minplayers[0]} - {data.maxplayers[0]}</p>
-                <p>playing time: {data.minplaytime[0]} - {data.maxplaytime[0]}</p>
-                <p>year published: {data.yearpublished[0]}</p>
+                <p>
+                    <span className="bold">players:</span> {data.minplayers[0]}
+                    - {data.maxplayers[0]}</p>
+                <p>
+                    <span className="bold">playing time:</span> {data.minplaytime[0]}
+                    - {data.maxplaytime[0]}</p>
+                <p>
+                    <span className="bold">year published:</span> {data.yearpublished[0]}</p>
             </section>
         );
     }

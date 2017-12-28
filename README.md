@@ -38,6 +38,7 @@ You can access the application's server directly under http://localhost:6001 or 
 
 The SSR part is made based on tutorial from https://www.smashingmagazine.com/2016/03/server-side-rendering-react-node-express/.
 
-Known issues:
-- Couldn't use localStorage, dunno why
-- There is a console error when there is no /public/js/app.js file, but with it, I cant change anything in DOM
+Know issues/TODO:
+- There is a console error when there is no /public/js/app.js file, but with it, I cant change anything in DOM.
+- Probably because of isomorphic, server-side rendered nature of the project, CSS Modules don't work.
+- Babel does not parse Flow's syntax. It seems that `transform-flow-strip-types` plugin doesn't work. Despite build errors, website works.

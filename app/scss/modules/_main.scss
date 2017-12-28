@@ -1,12 +1,6 @@
 .app-header {
-    background-color: $header-bg-color;
-    border-bottom: 1px solid $header-border-color;
-
-    height: $header-height;
     padding: $header-padding;
-
-    display: flex;
-    align-items: center;
+    max-width: 690px;
 
     h1 {
         font-size: nth($heading-sizes, 2);
@@ -15,8 +9,9 @@
 
     .link {
         display: block;
+        color: $header-logo-color;
     }
-    
+
     .desc {
         font-size: $header-desc-font-size;
         font-weight: 700;
@@ -38,17 +33,12 @@
     height: $section-header-height;
     margin: $section-header-margin;
 
-    display: flex;
-    align-items: center;
-
     & > .title {
-        flex: 1;
     }
 
     & > .link {
         font-weight: 700;
 
-        flex: 0 0 $section-header-link-width; 
         text-align: right;
     }
 }
@@ -66,8 +56,21 @@
     align-items: center;
 }
 
-.section-content {
-    max-width: $section-width;
+.bold {
+    font-weight: bold;
+}
 
-    margin: $section-content-margin;
+.colored {
+    color: $purple;
+}
+
+.dashed {
+    &:after {
+        margin-top: 5px;
+        height: 5px;
+        display: block;
+        content: '';
+        border-top: 1px solid $header-border-color;
+        border-bottom: 1px dashed $header-border-color;
+    }
 }

@@ -1,28 +1,29 @@
 $white:                         #ffffff;
 $night:                         #222222;
-$charcoal:                      #444444;
+$charcoal:                      #344c4c;
 $smoke:                         #cccccc;
 $white-smoke:                   #d6d6d6;
 $almost-white:                  #fafafa;
 
-$fire:                          #ff530d;
-$deep-red:                      #930000;
+$yellow:                        #FFFDCA;
+$purle-light:                   #B4AEDB;
+$purple:                        #4621EA;
 
-$main-font:                     "Roboto", "Segoe UI", "Arial", sans-serif;
+$main-font:                     "Roboto Slab", serif;
 $heading-font:                  "Montserrat", "Verdana", sans-serif;
 
-$default-bg-color:              $white;
+$default-bg-color:              #edefed;
 $default-font-color:            $charcoal;
-$default-container-padding:     1rem;
+$default-container-padding:     2rem;
 
 $heading-sizes:                 3rem, 2.25rem, 1.5rem, 1.3125rem, 1.125rem, 1rem;
 
 $header-height:                 4rem;
-$header-font-color:             $fire;
-$header-bg-color:               $almost-white;
-$header-border-color:           $white-smoke;
+$header-font-color:             $default-font-color;
+$header-bg-color:               $default-bg-color;
+$header-border-color:           $night;
 $header-padding:                $default-container-padding;
-$header-logo-color:             $deep-red;
+$header-logo-color:             $default-font-color;
 
 $header-desc-font-size:         0.875rem;
 $header-desc-line-height:       1.375;
@@ -32,13 +33,13 @@ $footer-border-color:           $white-smoke;
 
 $list-border-color:             $white-smoke;
 
-$main-content-padding:          3rem 2rem;
+$main-content-padding:          0 2rem;
 
-$link-hover-color:              $fire;
-$link-color:                    $deep-red;
+$link-hover-color:              $purle-light;
+$link-color:                    $purple;
 
-$button-bg-color:               $deep-red;
-$button-hover-bg-color:         $fire;
+$button-bg-color:               $purple;
+$button-hover-bg-color:         $yellow;
 $button-font-color:             $white;
 $button-shadow:                 2px 2px 3px $smoke;
 $button-subtle-shadow:          1px 1px 1px $smoke;
@@ -55,5 +56,5 @@ $section-footer-link-width:     6rem;
 
 $section-content-margin:        0 auto;
 
-$amount-font-color:             $fire;
-$date-font-color:               $deep-red;
+$amount-font-color:             $purple;
+$date-font-color:               $purple;
