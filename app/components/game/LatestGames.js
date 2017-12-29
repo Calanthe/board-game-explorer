@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-import List from '../common/List';
 import SingleGameItem from './SingleGameItem';
 
 import styles from './latestGames.css';
@@ -27,13 +26,25 @@ export default class LatestGames extends React.Component {
     }
 
     render() {
+        const markupItems = this.createItemsMarkup(this.state.item);
+
         return (
             <section className={styles.app}>
                 <section className="section-content">
-                    <List items={this.state.item} itemType={SingleGameItem}/>
+                    {markupItems}
                 </section>
             </section>
         );
+    }
+
+    createItemsMarkup(items) {
+        const markupItems = items.map((item) => {
+            return (
+                <SingleGameItem key={item.$.id} data={item}/>
+            );
+        });
+
+        return markupItems;
     }
 
     componentDidMount() {
